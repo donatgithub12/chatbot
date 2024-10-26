@@ -1,0 +1,4 @@
+What is the capital of France?
+The capital of France is Paris.
+How do you solve a quadratic equation?
+You can solve it using the quadratic formula: x = (-b ± √(b² - 4ac)) / 2a.

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduBot - Educational Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #chat-container {
+            width: 400px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        #chat-box {
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+        }
+        #chat-display {
+            height: 300px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+            font-size: 14px;
+        }
+        #user-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p {
+            margin: 0;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-box">
+            <div id="chat-display"></div>
+            <input type="text" id="user-input" placeholder="Type your question...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById("user-input").value;
+            if (userInput) {
+                // Display user message
+                const chatDisplay = document.getElementById("chat-display");
+                chatDisplay.innerHTML += `<p><strong>User:</strong> ${userInput}</p>`;
+                
+                // Send message to the backend
+                try {
+                    const response = await fetch("http://127.0.0.1:5000/get_response", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ message: userInput })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    // Display chatbot response
+                    chatDisplay.innerHTML += `<p><strong>EduBot:</strong> ${data.response}</p>`;
+                    
+                } catch (error) {
+                    chatDisplay.innerHTML += `<p><strong>EduBot:</strong> Sorry, there was an error processing your request.</p>`;
+                }
+
+                // Clear input
+                document.getElementById("user-input").value = "";
+                
+                // Scroll to the bottom
+                chatDisplay.scrollTop = chatDisplay.scrollHeight;
+            }
+        }
+    </script>
+</body>
+</html>
