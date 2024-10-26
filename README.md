@@ -5,4 +5,4 @@ Implemented text cleaning and preprocessing techniques using cleaner3.py to enha
 Used string similarity matching (difflib.get_close_matches) to find the closest responses to user queries.
 Integrated the chatbot seamlessly into the website, ensuring smooth interaction and quick response times.
 Improved the chatbot's performance by training it on edu_chat.txt, a dataset containing various educational queries and answers.
-Applied web development skills to build a user-friendly interface for the chatbot using HTML and CSS.
+Applied web development skills to build a user-friendly interface for the chatbot using HTML and CSS. UI3.html is the user interface
